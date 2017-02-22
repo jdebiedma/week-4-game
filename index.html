@@ -83,6 +83,11 @@ background-color: lightgrey;
   background-color: lightgreen;
 }
 
+.enemy-place-holder {
+
+  display: none;
+}
+
 
  
 
@@ -93,14 +98,15 @@ background-color: lightgrey;
 
 <div id ="main-container" class="container">
 
-<h1 style="text-align: center; margin-bottom: 0px; ">RPG: Super Smash Bros. Edition!</h1>
+<h1 style="text-align: center; margin-bottom: 0px; ">RPG: Mushroom Kingdom Edition!</h1>
 
 <br>
 
 <div id = "selectPlayer" class = "row">
-<div id = "bluebox" class = "col-md-8">
+<div id = "bluebox" class = "panel col-md-8">
 
-<h4>Player Select<span id="letter-Entry"><strong></strong></span></h4>
+
+<h4>Select Your Character!<span id="letter-Entry"><strong></strong></span></h4>
 
 
 
@@ -119,7 +125,11 @@ background-color: lightgrey;
 <div  id = "selectPlayer" class = "row">
 <div id = "redbox" class = "col-md-8">
 
+
+
 <h4>Enemies Available to Attack<span id="letter-Entry"><strong></strong></span></h4>
+<div class = "enemy-place-holder space">
+</div>
 </div>
 
 </div>

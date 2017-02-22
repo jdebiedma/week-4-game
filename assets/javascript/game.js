@@ -1,5 +1,10 @@
 $(document).ready(function () {
 var characterArray = [];
+
+var gameStart = true;
+var enemySelect = false;
+var attackPhase = false;
+
 var characters = [
 
 	{
@@ -58,10 +63,11 @@ for (var i = 0; i < characters.length; i++)
 
 
     var charSelectScreenItem = $("<button>")
-      .addClass("space")
+      .addClass("space char-example")
       .html("<h4>" + characters[i].name + "</h4>")
       .prepend('<img src=' + characters[i].imageUrl +' width="auto" height="125">')
-      .append("<h6>HP = " + characters[i].health + "</h6>")
+      .data("chosen",  false)
+      .append("<h5>HP = " + characters[i].health + "</h5>")
       .appendTo("#bluebox");
       
       console.log(characterArray);
@@ -69,6 +75,13 @@ for (var i = 0; i < characters.length; i++)
 
     
 }
+
+$('.char-example').click(function(){
+     $('.char-example').not(this).each(function(){
+         $(this).slideUp();
+     });
+     $(this).slideDown();
+})
 
 
 
