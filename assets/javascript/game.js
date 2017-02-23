@@ -111,13 +111,50 @@ for (var i = 0; i < characters.length; i++)
       								.appendTo("#redbox");
 
 							
-									
-							
+												
 						}
 					}
 
 
+						$(".enemy1").on("click", function() {
+							if (enemySelect) {
+									chosenEnemy = $(this).data('name');
+									
+											//Here's where the attack phase goes
 
+									for (var i = 0; i < characters.length; i++) {
+													
+
+									if (characters[i].name === chosenEnemy) {
+												
+									var selectedEnemy = $("<div>")
+									.html("<h4>" + characters[i].name + "</h4>")
+      								.prepend('<img src=' + characters[i].imageUrl +' width="auto" height="125">')
+      								.data("chosen",  false)
+      								.removeClass("space")
+      								.addClass("yourOpponent")
+      								.data("name", characters[i].name)
+      								.append("<h5>HP = " + characters[i].health + "</h5>")
+      								.append("<button type='button' class='btn btn-success' id='attackButton'>Attack</button>")
+      								.appendTo("#blackbox");
+
+
+
+      								$("#fightHold").html("FIGHT!!");
+
+
+												$(this).slideUp();
+												enemySelect = false;
+												attackPhase = true;
+
+
+												}
+
+												}
+												}
+
+												});
+							
 
 
 
@@ -138,24 +175,18 @@ for (var i = 0; i < characters.length; i++)
      	
 				
 
-					alert("pick a foe!");
-					alert(gameStart);
-					alert(enemySelect);
+					
+					
 				
 			
-					
+
 
 	});
 
 
 
 	
-$("enemy1").on("click", function() {
 
-
-alert("we out here");
-
-});
 
 
 

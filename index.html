@@ -32,7 +32,7 @@
 
 
 background-color: lightblue;
-padding-bottom: 10px;
+padding-bottom: 20px;
 
   
   
@@ -42,15 +42,15 @@ padding-bottom: 10px;
  #redbox {
 
 
-padding-bottom: 10px;
+padding-bottom: 20px;
 background-color: pink;
  }
 
   #blackbox {
 
 
-padding-bottom: 10px;
-background-color: lightgrey;
+padding-bottom: 20px;
+background-color: #585555;
  }
 
 
@@ -94,6 +94,21 @@ float: left;
   padding-top: 10px;
 }
 
+.yourOpponent {
+
+  float: left;
+  margin: 0;
+  background-color: lightgrey;
+  margin-right: 10px;
+  border-style: solid;
+  border-color: black;
+  border-width: 5px;
+  height: : 150px;
+  width : 150px;
+  text-align: center;
+  padding-top: 10px;
+}
+
 .space:hover {
 
   background-color: lightgreen;
@@ -104,11 +119,19 @@ float: left;
 
 .enemy1 {
 
-  background-color: #ff4d4d;
+  background-color: red;
   color: white;
 }
 
+#attackButton {
 
+  margin-bottom: 10px;
+}
+
+#whiteText {
+
+  color: white;
+}
 
 
  
@@ -157,14 +180,14 @@ float: left;
 
 <br>
 
-<h4>Fight Section</h4>
+<h1 id = "fightHold"></h1>
 
 <br>
 
 <div  id = "selectPlayer" class = "row">
 <div id = "blackbox" class = "col-md-8">
 
-<h4>Defense Position<span id="letter-Entry"><strong></strong></span></h4>
+<h4 id = whiteText >Defense Position<span id="letter-Entry"><strong></strong></span></h4>
 </div>
 
 </div>
