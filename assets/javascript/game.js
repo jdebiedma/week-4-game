@@ -4,14 +4,22 @@ var characterArray = [];
 var gameStart = true;
 var enemySelect = false;
 var attackPhase = false;
+var gameOver = false;
 
 var counter = 0;
 
+var fightersReady = false;
+
 var myHealth = 0;
+var myBaseAttack = 0;
 var myAttack = 0;
 var myCounterAttack = 0;
 var myImageUrl = "";
 var myName = "";
+
+var nextHealth = 100000;
+var prevEnemyHealth = 100000;
+var nextEnemyHealth = 100000;
 
 
 var characters = [
@@ -128,6 +136,7 @@ for (var i = 0; i < characters.length; i++)
 								myImageUrl = characters[i].imageUrl;
 								myHealth = characters[i].health;
       							myAttack = characters[i].attack;
+      							myBaseAttack = characters[i].attack;
       							myCounterAttack = characters[i].counterAttack;
 
 
@@ -143,15 +152,16 @@ for (var i = 0; i < characters.length; i++)
 							if (enemySelect) {
 									chosenEnemy = $(this).data('name');
 									
-											
+									
 
 									for (var i = 0; i < characters.length; i++) {
 													
 
 									if (characters[i].name === chosenEnemy) {
 									
+									if (!fightersReady)	{
 
-									var yourCharacter = $("<div>")
+									yourCharacter = $("<div id='clickable'>")
 									.html("<h4>" + myName + "</h4>")
       								.prepend('<img src=' + myImageUrl +' width="auto" height="125">')
       								.data("chosen",  true)
@@ -167,6 +177,7 @@ for (var i = 0; i < characters.length; i++)
       								.addClass("vsIcon")
       								.appendTo("#blackbox");
 
+      							}
 
 									var selectedEnemy = $("<div>")
 									.html("<h4>" + characters[i].name + "</h4>")
@@ -175,11 +186,11 @@ for (var i = 0; i < characters.length; i++)
       								.removeClass("space")
       								.addClass("yourOpponent")
       								.data("name", characters[i].name)
-      								.append("<h5 id ='enemyHealthHolder'>HP = " + characters[i].health + "</h5>")
-      								.append("<button type='button' class='btn btn-success' id='attackButton'>Attack</button>")
+      								.append("<h5 class = 'no"+ i +" '  id ='enemyHealthHolder'  >HP = " + characters[i].health + "</h5>")
+      								.append("<button type='button' class='btn btn-success number" + i + " ' id='attackButton'>Attack</button>")
       								.appendTo("#blackbox");
 
-
+      								
 
       								$("#fightHold").html("FIGHT!!");
 
@@ -187,26 +198,82 @@ for (var i = 0; i < characters.length; i++)
 												$(this).slideUp();
 												enemySelect = false;
 												attackPhase = true;
+												fightersReady = true;
 
+												
 												
 												// ATTACK PHASE 1
 												// you might be able to reference things outside of functions with their 
 												// global variable tags...
+												
 
-												$('#attackButton').on("click", function(){
+												$('.number' + i).on("click", function(){
+													
+
+												if (nextHealth < 1 ){
+													
+													gameOver = true; };
+
+												
+													
+											
+
+			
 												if (attackPhase)	{
 												for (var i = 0; i < characters.length; i++) {
+
 												if (characters[i].name === chosenEnemy){
 
+														nextEnemyHealth = characters[i].health - myAttack;
 														characters[i].health = characters[i].health - myAttack;
-														myHealth = myHealth - characters[i].counterAttack;
 														
-														$("#enemyHealthHolder").html("<h5 id ='enemyHealthHolder'>HP = " 
-															+ characters[i].health + "</h5>");
+														prevEnemyHealth = nextEnemyHealth + myAttack + myAttack;
+
+														myHealth = myHealth - characters[i].counterAttack;
+														nextHealth = myHealth - characters[i].counterAttack;
+														
+
+														myAttack = myAttack + myBaseAttack;
+
+														console.log(characters[i].health);
+														
+
+														if (nextEnemyHealth < 1){
+
+														$(selectedEnemy).slideUp();
+														attackPhase = false;
+														enemySelect = true;
+														$("#fightHold").html("You defeated " + chosenEnemy+ "! Select your next opponent!");
+
+
+															}	
+
+														
+
+														if (gameOver) {myHealth = 0;
+														characters[i].health = prevEnemyHealth;}
+
+															
+														
+
+														
+														$(".no" + i).html("<h5 class = 'no"+ i +" '  id ='enemyHealthHolder'  >HP = " + characters[i].health + "</h5>");
 
 														$("#myHealthHolder").html("<h5 id ='myHealthHolder'>HP = " 
 															+ myHealth + "</h5>");
-														
+
+										if (gameOver) {attackPhase = false; 
+												yourCharacter.addClass("imageWrapper");
+												yourCharacter.append('<img class="overlayImage" src="assets/images/x.png" width="auto" height="125">')
+												$("#fightHold").html('<h1 id="gameOver" >Game Over!</h1>')
+												$("#enemyHealthHolder").html("<h5 id ='enemyHealthHolder'>HP = " 
+															+ prevEnemyHealth + "</h5>");
+
+
+														return;
+
+														}
+															
 
 												}
 												}
@@ -249,9 +316,6 @@ for (var i = 0; i < characters.length; i++)
 
 	});
 
-
-
-	
 
 
 
