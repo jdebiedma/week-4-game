@@ -1,9 +1,11 @@
-$(document).ready(function () {
+
 var characterArray = [];
 
 var gameStart = true;
 var enemySelect = false;
 var attackPhase = false;
+
+var counter = 0;
 
 var characters = [
 
@@ -12,7 +14,8 @@ var characters = [
 		health: 100,
 		attack: 10,
 		imageUrl: "assets/images/mario.png",
-		counterAttack: 10
+		counterAttack: 10,
+		chosen: false
 
 },
 
@@ -21,8 +24,8 @@ var characters = [
 		health: 110,
 		attack: 7,
 		imageUrl: "assets/images/luigi.png",
-		counterAttack: 15
-
+		counterAttack: 15,
+		chosen: false
 },
 
 	{
@@ -30,8 +33,8 @@ var characters = [
 		health: 80,
 		attack: 12,
 		imageUrl: "assets/images/peach.png",
-		counterAttack: 12
-
+		counterAttack: 12,
+		chosen: false
 },
 
 	{
@@ -39,8 +42,8 @@ var characters = [
 		health: 150,
 		attack: 20,
 		imageUrl: "assets/images/bowser.png",
-		counterAttack: 5
-
+		counterAttack: 5,
+		chosen: false
 },
 
 
@@ -67,30 +70,94 @@ for (var i = 0; i < characters.length; i++)
       .html("<h4>" + characters[i].name + "</h4>")
       .prepend('<img src=' + characters[i].imageUrl +' width="auto" height="125">')
       .data("chosen",  false)
+      .data("name", characters[i].name)
       .append("<h5>HP = " + characters[i].health + "</h5>")
       .appendTo("#bluebox");
       
-      console.log(characterArray);
+      
 
-
-    
-}
-
-$('.char-example').click(function(){
-     $('.char-example').not(this).each(function(){
-         $(this).slideUp();
-     });
-     $(this).slideDown();
-})
+   
+}	
 
 
 
 
+	$('.char-example').on("click", function(){
+				if (gameStart) {
+
+
+
+
+				chosenChar = $(this).data('name');
+				gameStart = false;
+				enemySelect = true;
+				$(this).removeClass('space').addClass('selection');
+				
+				for (var i = 0; i < characters.length; i++) 
+ 	
+  					{
+
+						if (characters[i].name != chosenChar) {
+									
+									var enemySelectScreenItem = $("<button>")
+									.addClass("enemy1")
+									.addClass("space")
+									.addClass("test")
+      								.html("<h4>" + characters[i].name + "</h4>")
+      								.prepend('<img src=' + characters[i].imageUrl +' width="auto" height="125">')
+      								.data("chosen",  false)
+      								.data("name", characters[i].name)
+      								.append("<h5>HP = " + characters[i].health + "</h5>")
+      								.appendTo("#redbox");
+
+							
+									
+							
+						}
+					}
 
 
 
 
 
 
+     			
+     			$('.char-example').not(this).each(function(){
+
+
+     				 $(this).slideUp();
+     				 	
+     				 	
+     						});
+     				
+     				
+     				
+     	}
+
+
+     	
+				
+
+					alert("pick a foe!");
+					alert(gameStart);
+					alert(enemySelect);
+				
+			
+					
+
+	});
+
+
+
+	
+$("enemy1").on("click", function() {
+
+
+alert("we out here");
 
 });
+
+
+
+
+
