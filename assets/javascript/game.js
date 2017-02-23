@@ -4,9 +4,10 @@ var characterArray = [];
 var gameStart = true;
 var enemySelect = false;
 var attackPhase = false;
+var winCondition = false;
 var gameOver = false;
 
-var counter = 0;
+var counter = 1;
 
 var fightersReady = false;
 
@@ -20,6 +21,8 @@ var myName = "";
 var nextHealth = 100000;
 var prevEnemyHealth = 100000;
 var nextEnemyHealth = 100000;
+
+
 
 
 var characters = [
@@ -95,6 +98,8 @@ for (var i = 0; i < characters.length; i++)
 }	
 
 
+
+
 	//CHARACTER SELECT
 
 	$('.char-example').on("click", function(){
@@ -158,6 +163,8 @@ for (var i = 0; i < characters.length; i++)
 													
 
 									if (characters[i].name === chosenEnemy) {
+
+
 									
 									if (!fightersReady)	{
 
@@ -215,7 +222,7 @@ for (var i = 0; i < characters.length; i++)
 													gameOver = true; };
 
 												
-													
+												
 											
 
 			
@@ -236,6 +243,11 @@ for (var i = 0; i < characters.length; i++)
 														myAttack = myAttack + myBaseAttack;
 
 														console.log(characters[i].health);
+
+														if (counter === characters.length - 1 && nextEnemyHealth < 1) {
+
+													winCondition = true;
+												}
 														
 
 														if (nextEnemyHealth < 1){
@@ -244,14 +256,17 @@ for (var i = 0; i < characters.length; i++)
 														attackPhase = false;
 														enemySelect = true;
 														$("#fightHold").html("You defeated " + chosenEnemy+ "! Select your next opponent!");
-
+														counter ++;
+														
 
 															}	
 
 														
 
+														
+
 														if (gameOver) {myHealth = 0;
-														characters[i].health = prevEnemyHealth;}
+														}
 
 															
 														
@@ -266,14 +281,18 @@ for (var i = 0; i < characters.length; i++)
 												yourCharacter.addClass("imageWrapper");
 												yourCharacter.append('<img class="overlayImage" src="assets/images/x.png" width="auto" height="125">')
 												$("#fightHold").html('<h1 id="gameOver" >Game Over!</h1>')
-												$("#enemyHealthHolder").html("<h5 id ='enemyHealthHolder'>HP = " 
-															+ prevEnemyHealth + "</h5>");
+												
 
 
 														return;
 
 														}
-															
+
+										if (winCondition) {attackPhase = false;
+											enemySelect = false;
+											
+											$("#fightHold").html('<h1 id="gameOverGood" >You Won! All Opponents Defeated!</h1>');}
+															return;
 
 												}
 												}
