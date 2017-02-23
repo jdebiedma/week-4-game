@@ -7,6 +7,8 @@ var attackPhase = false;
 
 var counter = 0;
 
+
+
 var characters = [
 
 	{
@@ -147,7 +149,23 @@ for (var i = 0; i < characters.length; i++)
 												enemySelect = false;
 												attackPhase = true;
 
+												
 
+
+
+												$('#attackButton').on("click", function(){
+
+												for (var i = 0; i < characters.length; i++) {
+												if (characters[i].name === chosenEnemy){
+
+														alert("you attacked " + characters[i].name);
+														characters[i].health 
+
+												}
+												}
+												});
+												
+												
 												}
 
 												}
