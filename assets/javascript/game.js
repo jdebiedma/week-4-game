@@ -11,7 +11,9 @@ var counter = 1;
 
 var fightersReady = false;
 
+
 var myHealth = 0;
+var myMaxHealth = 0;
 var myBaseAttack = 0;
 var myAttack = 0;
 var myCounterAttack = 0;
@@ -22,6 +24,9 @@ var nextHealth = 100000;
 var prevEnemyHealth = 100000;
 var nextEnemyHealth = 100000;
 
+
+
+var enemyMaxHealth = 100000;
 var enemyHealth = 100000;
 
 
@@ -106,6 +111,7 @@ for (var i = 0; i < characters.length; i++)
       .data("chosen",  false)
       .data("name", characters[i].name)
       .append("<h5>HP = " + characters[i].health + "</h5>")
+      .append("<h6>Base Attack = " + characters[i].attack + "</h6>")
       .appendTo("#bluebox");
       
       
@@ -144,6 +150,7 @@ for (var i = 0; i < characters.length; i++)
       								.data("chosen",  false)
       								.data("name", characters[i].name)
       								.append("<h5>HP = " + characters[i].health + "</h5>")
+      								.append("<h6>Counter = " + characters[i].counterAttack + "</h6>")
       								.appendTo("#redbox");
 
       								
@@ -160,6 +167,8 @@ for (var i = 0; i < characters.length; i++)
       							myBaseAttack = characters[i].attack;
       							myCounterAttack = characters[i].counterAttack;
 
+      							myMaxHealth = characters[i].health;
+									
 
 							}
 
@@ -180,7 +189,8 @@ for (var i = 0; i < characters.length; i++)
 
 									if (characters[i].name === chosenEnemy) {
 
-
+										enemyMaxHealth = characters[i].health;
+										
 									
 									if (!fightersReady)	{
 
@@ -192,8 +202,12 @@ for (var i = 0; i < characters.length; i++)
       								.addClass("selection")
       								.data("name", myName)
       								.append("<h5 id ='myHealthHolder'>HP = " + myHealth + "</h5>")
+      								.append('  <progress id="health" value="  '+   myHealth   +'    " max="   '+ myMaxHealth + '    "></progress>')
+      								.append("<h6 id = 'myAttackHolder'>Attack Power = " + myAttack + "</h6>")
       								.append("<h3>Player</h3>")
       								.appendTo("#blackbox");
+
+      								health.value = myMaxHealth;
 
       								var vsHolder = $("<div>")
       								.html("<h2>" + "VERSUS" + "</h2>")
@@ -210,9 +224,14 @@ for (var i = 0; i < characters.length; i++)
       								.addClass("yourOpponent")
       								.data("name", characters[i].name)
       								.append("<h5 class = 'no"+ i +" '  id ='enemyHealthHolder'  >HP = " + characters[i].health + "</h5>")
+      								.append('  <progress class="EHB" id="enemyHealthBar'+ i +'"  value="  '+   characters[i].health  +'    " max="   '+ enemyMaxHealth + '    "></progress>')
+      								.append("<h6>Counter = " + characters[i].counterAttack + "</h6>")
       								.append("<button type='button' class='btn btn-success number" + i + " ' id='attackButton'>Attack</button>")
       								.appendTo("#blackbox");
 
+      								var enemyHealthBar = document.getElementById("enemyHealthBar" + i);
+														enemyHealthBar.max = enemyMaxHealth;
+														enemyHealthBar.value = characters[i].health;
       								
 
       								$("#fightHold").html("FIGHT!!");
@@ -222,6 +241,7 @@ for (var i = 0; i < characters.length; i++)
 												enemySelect = false;
 												attackPhase = true;
 												fightersReady = true;
+
 												enemyHealth = characters[i].health;
 												nextHealth = myHealth - characters[i].counterAttack;
 														console.log("Enemy health is " + characters[i].health);
@@ -266,6 +286,8 @@ for (var i = 0; i < characters.length; i++)
 														console.log("My next health will be " + nextHealth);
 
 
+
+
 														if (counter === characters.length - 1 && nextEnemyHealth < 1) {
 
 													winCondition = true;
@@ -291,7 +313,7 @@ for (var i = 0; i < characters.length; i++)
 														}
 
 															
-														
+														//jQuery to update values visually
 
 														
 														$(".no" + i).html("<h5 class = 'no"+ i +" '  id ='enemyHealthHolder'  >HP = " + characters[i].health + "</h5>");
@@ -299,7 +321,27 @@ for (var i = 0; i < characters.length; i++)
 														$("#myHealthHolder").html("<h5 id ='myHealthHolder'>HP = " 
 															+ myHealth + "</h5>");
 
-										if (gameOver) {attackPhase = false; 
+														$("#myAttackHolder").html("<h6 id = 'myAttackHolder'>Attack Power = " 
+															+ myAttack + "</h6>");
+
+														
+
+														var health = document.getElementById("health");
+														health.max = myMaxHealth;
+														health.value = myHealth; 
+														
+														var enemyHealthBar = document.getElementById("enemyHealthBar" + i);
+														enemyHealthBar.max = enemyMaxHealth;
+														enemyHealthBar.value = characters[i].health;
+
+														
+
+
+														$("#enemyHealthBar" + i).html('  <progress class="EHB" id="enemyHealthBar'+ i +'"  value="  '+   characters[i].health  +'    " max="   '+ enemyMaxHealth + '    "></progress>')
+														
+
+
+										if (gameOver) {attackPhase = false; enemySelect = false;
 												yourCharacter.addClass("imageWrapper");
 												yourCharacter.append('<img class="overlayImage" src="assets/images/x.png" width="auto" height="125">')
 												$("#fightHold").html('<h1 id="gameOver" >Game Over!</h1>')
