@@ -22,7 +22,7 @@ var nextHealth = 100000;
 var prevEnemyHealth = 100000;
 var nextEnemyHealth = 100000;
 
-
+var enemyHealth = 100000;
 
 
 var characters = [
@@ -63,7 +63,23 @@ var characters = [
 		counterAttack: 5,
 		chosen: false
 },
+		{
+		name: "Toad",
+		health: 50,
+		attack: 10,
+		imageUrl: "assets/images/toad.png",
+		counterAttack: 50,
+		chosen: false
+},
 
+{
+		name: "King Boo",
+		health: 150,
+		attack: 5,
+		imageUrl: "assets/images/kingboo.png",
+		counterAttack: 20,
+		chosen: false
+},
 
 
 ]
@@ -206,8 +222,11 @@ for (var i = 0; i < characters.length; i++)
 												enemySelect = false;
 												attackPhase = true;
 												fightersReady = true;
-
-												
+												enemyHealth = characters[i].health;
+												nextHealth = myHealth - characters[i].counterAttack;
+														console.log("Enemy health is " + characters[i].health);
+														console.log("My health is " + myHealth);
+														console.log("My next health will be " + nextHealth);
 												
 												// ATTACK PHASE 1
 												// you might be able to reference things outside of functions with their 
@@ -217,7 +236,7 @@ for (var i = 0; i < characters.length; i++)
 												$('.number' + i).on("click", function(){
 													
 
-												if (nextHealth < 1 ){
+												if (nextHealth < 1 && enemyHealth > 0 ){
 													
 													gameOver = true; };
 
@@ -242,7 +261,10 @@ for (var i = 0; i < characters.length; i++)
 
 														myAttack = myAttack + myBaseAttack;
 
-														console.log(characters[i].health);
+														console.log("Enemy health is " + characters[i].health);
+														console.log("My health is " + myHealth);
+														console.log("My next health will be " + nextHealth);
+
 
 														if (counter === characters.length - 1 && nextEnemyHealth < 1) {
 
