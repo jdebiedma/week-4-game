@@ -47,7 +47,7 @@ var characters = [
 		health: 110,
 		attack: 7,
 		imageUrl: "assets/images/luigi.png",
-		counterAttack: 15,
+		counterAttack: 12,
 		chosen: false
 },
 
@@ -56,7 +56,7 @@ var characters = [
 		health: 80,
 		attack: 12,
 		imageUrl: "assets/images/peach.png",
-		counterAttack: 12,
+		counterAttack: 15,
 		chosen: false
 },
 
@@ -80,7 +80,7 @@ var characters = [
 {
 		name: "King Boo",
 		health: 150,
-		attack: 5,
+		attack: 6,
 		imageUrl: "assets/images/kingboo.png",
 		counterAttack: 20,
 		chosen: false
