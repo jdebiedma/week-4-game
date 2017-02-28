@@ -29,6 +29,19 @@ var nextEnemyHealth = 100000;
 var enemyMaxHealth = 100000;
 var enemyHealth = 100000;
 
+ var number = 0;
+ var running = false;
+
+    //  Variable that will hold our interval ID when we execute
+    //  the "run" function
+    var intervalId;
+
+    //  When the stop button gets clicked, run the stop function.
+    $("#stop").on("click", stop);
+
+    //  When the resume button gets clicked, execute the run function.
+    $("#resume").on("click", run);
+
 
 var characters = [
 
@@ -129,6 +142,10 @@ for (var i = 0; i < characters.length; i++)
 
 
 
+	
+
+
+    			run();
 
 				chosenChar = $(this).data('name');
 				gameStart = false;
@@ -140,6 +157,8 @@ for (var i = 0; i < characters.length; i++)
   					{
 
 						if (characters[i].name != chosenChar) {
+
+									
 									
 									var enemySelectScreenItem = $("<button>")
 									.addClass("enemy1")
@@ -194,6 +213,12 @@ for (var i = 0; i < characters.length; i++)
 									
 									if (!fightersReady)	{
 
+									if (!gameOver)	{
+
+									
+								}	
+
+
 									yourCharacter = $("<div id='clickable'>")
 									.html("<h4>" + myName + "</h4>")
       								.prepend('<img src=' + myImageUrl +' width="auto" height="125">')
@@ -216,6 +241,9 @@ for (var i = 0; i < characters.length; i++)
 
       							}
 
+      								
+									
+
 									var selectedEnemy = $("<div>")
 									.html("<h4>" + characters[i].name + "</h4>")
       								.prepend('<img src=' + characters[i].imageUrl +' width="auto" height="125">')
@@ -236,7 +264,7 @@ for (var i = 0; i < characters.length; i++)
 
       								$("#fightHold").html("FIGHT!!");
 
-
+      									$("#blackbox").css("display", "block");	
 												$(this).slideUp();
 												enemySelect = false;
 												attackPhase = true;
@@ -301,7 +329,7 @@ for (var i = 0; i < characters.length; i++)
 														enemySelect = true;
 														$("#fightHold").html("You defeated " + chosenEnemy+ "! Select your next opponent!");
 														counter ++;
-														
+																			
 
 															}	
 
@@ -345,9 +373,15 @@ for (var i = 0; i < characters.length; i++)
 												yourCharacter.addClass("imageWrapper");
 												yourCharacter.append('<img class="overlayImage" src="assets/images/x.png" width="auto" height="125">')
 												$("#fightHold").html('<h1 id="gameOver" >Game Over!</h1>')
+
 												
 
+												setTimeout(function () {
+    												window.location.reload(1);
+														}, 3000);
+												
 
+														stop();
 														return;
 
 														}
@@ -355,7 +389,14 @@ for (var i = 0; i < characters.length; i++)
 										if (winCondition) {attackPhase = false;
 											enemySelect = false;
 											
-											$("#fightHold").html('<h1 id="gameOverGood" >You Won! All Opponents Defeated!</h1>');}
+											$("#fightHold").html('<h1 id="gameOverGood" >You Won! All Opponents Defeated!</h1>');
+
+														stop();
+														$("#stopwatch").html("<h1>Time: " + (number / 100) + "</h2>")
+														.addClass("winTime");
+													}
+
+															
 															return;
 
 												}
@@ -399,7 +440,38 @@ for (var i = 0; i < characters.length; i++)
 
 	});
 
+function run() {
+      if (!running ){
+      intervalId = setInterval(increment, 10); }
+      running = true;
+    }
 
+    //  The decrement function.
+    function increment() {
+
+      //  Decrease number by one.
+      number = number + 1;
+
+      //  Show the number in the #show-number tag.
+      $("#stopwatch").html("<h2>Time: " + (number / 100) + "</h2>");
+
+
+      //  Once number hits zero...
+      
+    }
+
+    function stop() {
+
+      if (running) {
+
+      //  Clears our intervalId
+      //  We just pass the name of the interval
+      //  to the clearInterval function.
+      clearInterval(intervalId);
+    }
+      running = false;
+
+    }
 
 
 
