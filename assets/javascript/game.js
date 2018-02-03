@@ -48,7 +48,7 @@ var characters = [
 	{
 		name: "Mario",
 		health: 100,
-		attack: 10,
+		attack: 13,
 		imageUrl: "assets/images/mario.png",
 		counterAttack: 10,
 		chosen: false
@@ -57,8 +57,8 @@ var characters = [
 
 	{
 		name: "Luigi",
-		health: 110,
-		attack: 7,
+		health: 120,
+		attack: 9,
 		imageUrl: "assets/images/luigi.png",
 		counterAttack: 12,
 		chosen: false
@@ -76,7 +76,7 @@ var characters = [
 	{
 		name: "Bowser",
 		health: 150,
-		attack: 20,
+		attack: 14,
 		imageUrl: "assets/images/bowser.png",
 		counterAttack: 5,
 		chosen: false
@@ -92,10 +92,10 @@ var characters = [
 
 {
 		name: "King Boo",
-		health: 150,
-		attack: 6,
+		health: 200,
+		attack: 3,
 		imageUrl: "assets/images/kingboo.png",
-		counterAttack: 20,
+		counterAttack: 8,
 		chosen: false
 },
 
@@ -126,10 +126,7 @@ for (var i = 0; i < characters.length; i++)
       .append("<h5>HP = " + characters[i].health + "</h5>")
       .append("<h6>Base Attack = " + characters[i].attack + "</h6>")
       .appendTo("#bluebox");
-      
-      
-
-   
+     
 }	
 
 
